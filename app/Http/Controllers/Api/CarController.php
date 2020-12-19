@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Make;
+use App\Modelo;
+use App\Range;
+use App\VehicleType;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -19,8 +23,8 @@ class CarController extends Controller
 
         $targetFile = storage_path('app/public/csv/example_stock.csv');
         $lines = file($targetFile);
-        $titles = explode(',', $lines[0]);
-        $data = explode(',', str_replace('\"','', $lines[1],),12);
+        $titles = explode(',', str_replace(['"',",\r\n"],['',''],$lines[0]));
+        $data = explode(',', str_replace('\"','', $lines[1]),12);
 
         $data[5] = str_replace('"','', $data[5].','.$data[6]);
         unset($data[6]);
@@ -33,13 +37,83 @@ class CarController extends Controller
         }
 
         $print = [];
+        $insert = [];
+
+        dump($titles);
 
         foreach ($titles as $key => $title) {
 
             $print[$title] = $newData[$key];
-        }
 
-//        return str_replace('\"','', $lines[1]);
+            switch ($title) {
+                case 'MAKE':
+
+                    try {
+                        $make = Make::findOrCreate(['title' => $newData[$key]]);
+                        $insert['make_id'] = $make->id;
+                    } catch (\Exception $e) {
+                        dd($e->getMessage());
+                    }
+
+                    break;
+
+                case 'RANGE':
+
+                    try {
+                        $range = Range::findOrCreate([
+                            'make_id' => $insert['make_id'],
+                            'title' => $newData[$key]
+                        ]);
+                        $insert['range_id'] = $range->id;
+                    } catch (\Exception $e) {
+                        dd($e);
+                    }
+
+                    break;
+
+                case 'MODEL':
+
+                    try {
+                        $model = Modelo::findOrCreate([
+                            'range_id' => $insert['range_id'],
+                            'title' => $newData[$key]
+                        ]);
+                        $insert['model_id'] = $model->id;
+                    } catch (\Exception $e) {
+                        dd($e->getMessage());
+                    }
+
+                    break;
+
+                case 'VEHICLE_TYPE':
+
+                    try {
+                        $vehicleType = VehicleType::findOrCreate(['title' => $newData[$key]]);
+                        $insert['vehicle_type'] = $vehicleType->id;
+                    } catch (\Exception $e) {
+                        dd($e->getMessage());
+                    }
+
+                    break;
+            }
+        }
+        //check and insert
+
+        dd($print);
+
+        $insert += [
+            'reg' => $print['REG'],
+            'title' => $print['DERIVATIVE'],
+            'price_inc_vat' => $print['PRICE_INC_VAT'],
+            'colour' => $print['COLOUR'],
+            'mileage' => $print['MILEAGE'],
+            'date_on_forecourt' => $print['DATE_ON_FORECOURT'],
+            'images' => $print['images']
+        ];
+
+
+        dd($insert);
+
         return [$print,$newData];
     }
 
