@@ -9,14 +9,14 @@ services:
     command: nginx-debug -g 'daemon off;'
     working_dir: /opt
     links:
-      - php7
+      - php
     networks:
       - develop
     volumes:
       - ./public:/opt/public
       - ./laravel.conf:/etc/nginx/conf.d/laravel.conf
     depends_on:
-      - php7
+      - php
   db:
     image: mysql
     container_name: db

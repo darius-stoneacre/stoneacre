@@ -13,7 +13,7 @@ if [ ! -d $(pwd)/vendor ]; then
     mv composer.phar /usr/local/bin/composer
 fi
 if [ "$INSTALL_VENDOR" = "y" ]; then
-    sed 's/DB_HOST=127.0.0.1/DB_HOST=fullstack_database/;s/DB_PASSWORD=/DB_PASSWORD=root/' .env.example > .env && \
+    sed 's/DB_HOST=127.0.0.1/DB_HOST=db/;s/DB_PASSWORD=/DB_PASSWORD=root/' .env.example > .env && \
     chmod 777 .env && \
     chmod 777 -R storage && \
     composer install && \
