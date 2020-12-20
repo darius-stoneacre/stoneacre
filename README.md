@@ -1,21 +1,26 @@
 # stoneacre
 PHP Technical Test on Laravel
 
-dennys@linux:~/Projects/stoneacre$ docker-compose up --build
-Creating network "stoneacre_develop" with driver "bridge"
-Creating volume "stoneacre_stoneacre" with default driver
-Creating db
-Creating php7
-Creating nginx
-Attaching to db, php7, nginx
+run on docker (Linux):
+    
+    docker-compose up --build
+    
+or 
+
+    composer update
+    php artisan serve
+    
+don't forget set database config .env
 
 Routes:
-
 - Import car
-http://localhost/api/import-car
+http://localhost/api/import-csv
 
 - Car Index
-http://localhost/api/car
+http://localhost/api/vehicle
 
 - Car Details
-http://localhost/api/car/<id>
+http://localhost/api/vehicle/<id>
+
+- Export CSV
+http://localhost/api/export-csv

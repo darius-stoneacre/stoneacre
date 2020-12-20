@@ -11,6 +11,7 @@ use App\Vehicle;
 use App\VehicleImage;
 use App\VehicleType;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class VehicleController extends Controller
 {
@@ -22,7 +23,7 @@ class VehicleController extends Controller
     public function index()
     {
 
-        return VehicleResource::collection(Vehicle::all());
+        return Excel::CSV(VehicleResource::collection(Vehicle::all()),'file.csv');
     }
 
     /**
@@ -35,12 +36,4 @@ class VehicleController extends Controller
     {
         return new VehicleResource(Vehicle::findOrFail($id));
     }
-
-    public function mail()
-    {
-        $success = '111';
-        $success = '111';
-        return view('mail', compact('success'));
-    }
-
 }

@@ -1,7 +1,10 @@
 #!/bin/bash
 
+#docker-php-ext-install iconv zip xml xmlreader simplexml gd
+#composer require phpoffice/phpspreadsheet
+
 if [ ! -d $(pwd)/vendor ]; then
-    docker-php-ext-install pdo_mysql gd
+    docker-php-ext-install pdo_mysql iconv zip xml xmlreader simplexml gd
     apt-get update &&  \
     apt-get install -y libzip-dev libssl-dev git unzip libwebp-dev libjpeg62-turbo-dev libpng-dev libxpm-dev \
     libfreetype6-dev && \

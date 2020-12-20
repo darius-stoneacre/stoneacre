@@ -23,6 +23,7 @@ class CreateVehiclesTable extends Migration
             $table->string('colour');
             $table->integer('mileage');
             $table->date('date_on_forecourt')->nullable();
+//            $table->enum('active',['Y','N'])->default('N');
             $table->timestamps();
 
             $table->foreign('model_id')->references('id')->on('models');

@@ -19,8 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('car','Api\VehicleController')->only(['index','show']);
+Route::apiResource('vehicle','Api\VehicleController')->only(['index','show']);
 
-Route::get('import-car', 'Api\ImportCarController');
+Route::get('import-csv', 'Api\ImportController');
+Route::get('export-csv', 'Api\ExportController');
 
 Route::get('mail', 'Api\VehicleController@mail');

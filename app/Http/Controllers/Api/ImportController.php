@@ -11,7 +11,7 @@ use App\VehicleImage;
 use App\VehicleType;
 use Illuminate\Http\Request;
 
-class ImportCarController extends Controller
+class ImportController extends Controller
 {
     /**
      * Handle the incoming request.
