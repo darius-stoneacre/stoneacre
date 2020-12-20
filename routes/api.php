@@ -19,4 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('car','Api\CarController')->only(['index','store','show']);
+Route::apiResource('car','Api\VehicleController')->only(['index','show']);
+
+Route::get('import-car', 'Api\ImportCarController');
+
+Route::get('mail', 'Api\VehicleController@mail');

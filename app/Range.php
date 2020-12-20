@@ -18,4 +18,9 @@ class Range extends Model
         }
         return $obj;
     }
+
+    public function make()
+    {
+        return $this->belongsTo(Make::class);
+    }
 }

@@ -19,4 +19,9 @@ class Modelo extends Model
         }
         return $obj;
     }
+
+    public function range()
+    {
+        return $this->belongsTo(Range::class);
+    }
 }

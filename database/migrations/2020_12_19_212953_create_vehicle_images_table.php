@@ -17,6 +17,8 @@ class CreateVehicleImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_id');
             $table->string('target');
+            $table->tinyInteger('order')->nullable();
+            $table->enum('featured',['Y','N'])->default('N');
             $table->timestamps();
         });
     }

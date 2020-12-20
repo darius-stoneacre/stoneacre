@@ -17,7 +17,7 @@ class CreateVehiclesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('model_id');
             $table->unsignedBigInteger('vehicle_type_id');
-            $table->string('reg');
+            $table->string('reg')->unique();
             $table->string('title');
             $table->double('price_inc_vat',10,2);
             $table->string('colour');
